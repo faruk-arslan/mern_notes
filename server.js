@@ -1,21 +1,22 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const session = require('express-session')
-var passport = require('passport')
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 // local file calls
-var apiRouter = require('./routes/api')
-var indexRouter = require('./routes/index')
-var userRouter = require('./routes/users')
+var apiRouter = require('./routes/api');
+var indexRouter = require('./routes/index');
+var userRouter = require('./routes/users');
+var notesRouter = require('./routes/notes');
 // models
-const User = require('./models/userModel')
+const User = require('./models/userModel');
 
 
-const app = express()
+const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb+srv://admin-nowll:maDnm0156.@cluster0-czixj.mongodb.net/notesDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).
     catch(error => { console.log(error) })
@@ -69,9 +70,10 @@ passport.deserializeUser(function (id, done) {
 });
 
 /** Route distributions */
-app.use('/', indexRouter)
-app.use('/api', apiRouter)
-app.use('/user', userRouter)
+app.use('/', indexRouter);
+app.use('/api', apiRouter);
+app.use('/user', userRouter);
+app.use('/notes', notesRouter);
 
 
 

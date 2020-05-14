@@ -1,6 +1,8 @@
 const User = require('../models/userModel')
+const Note = require('../models/noteModel');
 const passport = require('passport')
 const bcrypt = require('bcrypt')
+
 
 
 exports.index = function (req, res) {
@@ -11,9 +13,8 @@ exports.getRegisterPage = function (req, res) {
     res.send("User controller register - GET!")
 }
 
-exports.registerUser = function (req, res, next) {
-    const { email, password, passwordConfirm } = req.body;
-    let errors = [];
+function checkForm(email, password, passwordConfirm) {
+    const errors = [];
     // check empty fields
     if (!email || !password || !passwordConfirm) {
         errors.push({ msg: 'Please fill all fields' });
@@ -26,11 +27,12 @@ exports.registerUser = function (req, res, next) {
     if (password.length < 6) {
         errors.push({ msg: 'Password must be at least 6 characters' });
     }
-    // check if email already exist
-    // User.findOne({ email: email }).then(user => {
-    //     if (user) errors.push({ msg: 'Email already exists' });
-    // });
-    // if there is an error
+    return errors;
+}
+
+exports.registerUser = function (req, res, next) {
+    const { email, password, passwordConfirm } = req.body;
+    const errors = checkForm(email, password, passwordConfirm);
     if (errors.length > 0) {
         res.send({
             errors,
@@ -38,7 +40,9 @@ exports.registerUser = function (req, res, next) {
             password,
             passwordConfirm
         });
-    } else {
+    }
+    // form is correct
+    else {
         // check if email already exist
         User.findOne({ email: email }).then(user => {
             if (user) {
@@ -49,37 +53,41 @@ exports.registerUser = function (req, res, next) {
                     password,
                     passwordConfirm
                 });
-            } else {
-                // all things being equal
-                const newUser = new User({
-                    email,
-                    password
-                });
-
+            }
+            // all things being equal
+            else {
                 bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    bcrypt.hash(password, salt, (err, hash) => {
                         if (err) console.log(err);
-                        // assign hash as a pwd and save the user
-                        newUser.password = hash;
-                        newUser.save()
-                            .then(user => {
-                                console.log("User created successfully!");
-
+                        const date=Date.now();
+                        // create the new user and save
+                        new User({
+                            email,
+                            password: hash,
+                            creationDate:date
+                        }).save().then(user => {
+                            console.log("User created successfully!");
+                            // create the notes object in db for the new user
+                            new Note({
+                                uid: user._id,
+                                notes: [],
+                                creationDate:date
+                            }).save().then(note => {
+                                console.log("Notes obj created successfully!");
+                                // after db operations done, authenticate the user
                                 passport.authenticate('local', {
                                     successRedirect: '/',
                                     failureRedirect: '/user/login',
                                     failureFlash: false
                                 })(req, res, next);
-
-                                // res.redirect('/user/login');
                             })
+                        })
                             .catch(err => console.log(err));
                     });
                 });
             }
         });
     }
-    // res.send("User controller register - POST!")
 }
 
 exports.getLoginPage = function (req, res) {
