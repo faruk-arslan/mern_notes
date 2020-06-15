@@ -67,7 +67,14 @@ passport.deserializeUser(function (id, done) {
     User.findById(id, function (err, user) {
         done(err, user);
     });
-});
+}); 
+
+// app.use(function (req, res, next) {
+//     console.log("middleware cacth")
+//     console.log(req.path)
+//     if(req.user || (req.path==="/user/login")) next()
+//     else res.redirect("/user/login")
+//   })
 
 /** Route distributions */
 app.use('/', indexRouter);

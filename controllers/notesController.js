@@ -1,85 +1,68 @@
-const Note=require('../models/noteModel');
+const Note = require('../models/noteModel');
 const { v4: uuidv4 } = require('uuid');
 
-exports.index= function(req,res){
-    console.log(req.user._id)
-    if(!req.user){
-        res.redirect("/user/login")
-    }else{
-        res.send("You are on the notes index page (authorized).")
-    }
-    
+exports.index = function (req, res) {
+    // console.log(req.user._id)
+    res.send("You are on the notes index page (authorized).")
+
 }
 
-exports.addNote=function(req,res){
-    if(!req.user){
-        res.redirect("/user/login")
-    }else{
-        Note.findOne({ uid: req.user._id }, function (err, doc) {
-            if(err) console.log(err);
-            const newNote={
-                id: uuidv4(),
-                title:req.body.title,
-                content: req.body.content
-            }
-            doc.notes.push(newNote);
-            doc.markModified('notes');
-            doc.save().then(()=>{
-                console.log("Note successfully created.")
-                res.redirect('/')
-            });
+exports.addNote = function (req, res) {
+
+    Note.findOne({ uid: req.user._id }, function (err, doc) {
+        if (err) console.log(err);
+        const newNote = {
+            id: uuidv4(),
+            title: req.body.title,
+            content: req.body.content
+        }
+        doc.notes.push(newNote);
+        doc.markModified('notes');
+        doc.save().then(() => {
+            console.log("Note successfully created.")
+            res.redirect('/')
         });
-    }
+    });
 }
 
-exports.getNotes=function(req,res){
-    if(!req.user){
-        res.redirect("/user/login")
-    }else{
-        Note.findOne({ uid: req.user._id }, function (err, doc) {
-            if(err) console.log(err);
-            res.send(doc.notes)
-        });
-    }
+exports.getNotes = function (req, res) {
+    Note.findOne({ uid: req.user._id }, function (err, doc) {
+        if (err) console.log(err);
+        res.send(doc.notes)
+    });
 }
 
-exports.updateNote=function(req,res){
-    if(!req.user){
-        res.redirect("/user/login")
-    }else{
-        Note.findOne({ uid: req.user._id }, function (err, doc) {
-            if(err) console.log(err);
-            const noteToUpdate=doc.notes.filter(note=> note.id==req.body.noteId);
-            const indexToUpdate=doc.notes.indexOf(noteToUpdate[0]);
-            if(req.body.title){
-                doc.notes[indexToUpdate].title=req.body.title;
-            }
-            if(req.body.content){
-                doc.notes[indexToUpdate].content=req.body.content;
-            }            
-            doc.markModified('notes');
-            doc.save().then(()=>{
-                console.log("Note successfully updated.")
-                res.redirect('/');
-            });
+exports.updateNote = function (req, res) {
+
+    Note.findOne({ uid: req.user._id }, function (err, doc) {
+        if (err) console.log(err);
+        const noteToUpdate = doc.notes.filter(note => note.id == req.body.noteId);
+        const indexToUpdate = doc.notes.indexOf(noteToUpdate[0]);
+        if (req.body.title) {
+            doc.notes[indexToUpdate].title = req.body.title;
+        }
+        if (req.body.content) {
+            doc.notes[indexToUpdate].content = req.body.content;
+        }
+        doc.markModified('notes');
+        doc.save().then(() => {
+            console.log("Note successfully updated.")
+            res.redirect('/');
         });
-    }
+    });
 }
 
-exports.deleteNote=function(req,res){
-    if(!req.user){
-        res.redirect("/user/login")
-    }else{
-        Note.findOne({ uid: req.user._id }, function (err, doc) {
-            if(err) console.log(err);
-            const noteToUpdate=doc.notes.filter(note=> note.id==req.body.noteId);
-            const indexToDelete=doc.notes.indexOf(noteToUpdate[0]);
-            doc.notes.splice(indexToDelete,1);         
-            doc.markModified('notes');
-            doc.save().then(()=>{
-                console.log("Note successfully deleted.")
-                res.redirect('/');
-            });
+exports.deleteNote = function (req, res) {
+
+    Note.findOne({ uid: req.user._id }, function (err, doc) {
+        if (err) console.log(err);
+        const noteToUpdate = doc.notes.filter(note => note.id == req.body.noteId);
+        const indexToDelete = doc.notes.indexOf(noteToUpdate[0]);
+        doc.notes.splice(indexToDelete, 1);
+        doc.markModified('notes');
+        doc.save().then(() => {
+            console.log("Note successfully deleted.")
+            res.redirect('/');
         });
-    }
+    });
 }

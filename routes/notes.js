@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const notesController = require('../controllers/notesController');
 
+router.use(function (req, res, next) {
+    if (!req.user) res.redirect('/user/login');
+    else next();
+  })
+
 router.get('/', notesController.index);
 router.get('/all', notesController.getNotes);
 router.post('/add', notesController.addNote);

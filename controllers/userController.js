@@ -9,6 +9,11 @@ exports.index = function (req, res) {
     res.send("User controller index!")
 }
 
+exports.checkUser=function (req,res) {
+    if(!req.user) res.send(false);
+    else res.send(true);
+}
+
 exports.getRegisterPage = function (req, res) {
     res.send("User controller register - GET!")
 }
@@ -59,25 +64,25 @@ exports.registerUser = function (req, res, next) {
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(password, salt, (err, hash) => {
                         if (err) console.log(err);
-                        const date=Date.now();
+                        const date = Date.now();
                         // create the new user and save
                         new User({
                             email,
                             password: hash,
-                            creationDate:date
+                            creationDate: date
                         }).save().then(user => {
                             console.log("User created successfully!");
                             // create the notes object in db for the new user
                             new Note({
                                 uid: user._id,
                                 notes: [],
-                                creationDate:date
+                                creationDate: date
                             }).save().then(note => {
                                 console.log("Notes obj created successfully!");
                                 // after db operations done, authenticate the user
                                 passport.authenticate('local', {
-                                    successRedirect: '/',
-                                    failureRedirect: '/user/login',
+                                    successRedirect: '/success',
+                                    failureRedirect: '/failure',
                                     failureFlash: false
                                 })(req, res, next);
                             })
@@ -98,9 +103,23 @@ exports.loginUser = function (req, res, next) {
     console.log(req.body)
     // res.send("User controller login - POST!")
 
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/user/login',
-        failureFlash: false
-    })(req, res, next);
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.send({value: false, msg:'Email or password is wrong'}); }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.send({value: true, msg:'Login successfull.'});
+        });
+      })(req, res, next);
+
+    // passport.authenticate('local', {
+    //     successRedirect: '/success',
+    //     failureRedirect: '/failure',
+    //     failureFlash: false
+    // })(req, res, next);
+}
+
+exports.logoutUser = function (req, res, next) {
+    req.logout();
+    res.redirect('/user/login');
 }
