@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './Register.css';
-import store from '../redux/store';
 import axios from 'axios';
 import qs from 'qs';
 import {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './Login.css';
-import store from '../redux/store';
 import axios from 'axios';
 import qs from 'qs';
 import {
@@ -40,7 +39,7 @@ function Login() {
                 document.getElementById('backend-error').style.visibility = 'visible';
                 document.getElementById('backend-error').innerHTML = result.data.msg;
             } else {
-                history.push("/notes");
+                history.push("/dashboard");
             }
             console.log(result);
 

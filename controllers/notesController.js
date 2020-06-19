@@ -16,12 +16,16 @@ exports.addNote = function (req, res) {
             title: req.body.title,
             content: req.body.content
         }
-        doc.notes.push(newNote);
-        doc.markModified('notes');
-        doc.save().then(() => {
-            console.log("Note successfully created.")
-            res.redirect('/')
-        });
+        if (!doc) { res.send({ value: false, msg: "Something went wrong." }); }
+        else {
+            doc.notes.push(newNote);
+            doc.markModified('notes');
+            doc.save().then(() => {
+                console.log("Note successfully created.")
+                res.send({ value: true, msg: "Note created sucessfully.", newItem:newNote});
+            });
+        }
+
     });
 }
 

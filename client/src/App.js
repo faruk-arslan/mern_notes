@@ -7,15 +7,10 @@ import {
   Link,
   useHistory 
 } from "react-router-dom";
-import logo from './logo.svg';
 import './App.css';
-import Test from './components/Test';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Notes from './components/Notes';
-import NoteDetails from './components/NoteDetails';
-import Login from './components/Login';
-import Register from './components/Register';
+import Dashboard from './components/Dashboard/Dashboard';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 import axios from 'axios';
 import qs from 'qs';
 import store from './redux/store';
@@ -25,11 +20,6 @@ function App() {
   const history = useHistory();
 
   store.subscribe(() => console.log(store.getState()));
-
-  // axios.get('/user/check').then(res=>{
-  //   console.log(res)
-  // });
-
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
 
@@ -45,42 +35,18 @@ function App() {
 
   return (
     <Router>
-      <Header/>
-        {/* {(!store.getState() && !isLoading) ? <Redirect to="/login" /> : <Notes />} */}
-        {!store.getState() && !isLoading && <Redirect to="/login" />}
-        {store.getState() && !isLoading && <Redirect to="/notes" />}
-      <Footer />
+      {store.getState() && !isLoading && <Redirect to="/dashboard" />}
+      {!store.getState() && !isLoading && <Redirect to="/login" />}
       
-
+      <Route path="/dashboard">
+        <Dashboard />
+      </Route>
       <Route path="/login">
         <Login />
       </Route>
       <Route path="/register">
         <Register />
       </Route>
-      <Route path="/notes">
-        <Notes />
-      </Route>
-      <Route path="/noteDetails">
-        <NoteDetails />
-      </Route>
-
-      {/* {store.getState() && !isLoading && [
-        <Header />,
-        <Switch>,
-          <Route path="/login">,
-            <Login />,
-          </Route>,
-          <Route path="/notes">,
-            <Notes />,
-          </Route>,
-          <Route path="/noteDetails">,
-            <NoteDetails />,
-          </Route>,
-        </Switch>,
-        <Footer />
-      ]} */}
-
 
     </Router>
   );
