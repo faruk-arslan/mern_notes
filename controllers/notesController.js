@@ -66,7 +66,7 @@ exports.deleteNote = function (req, res) {
         doc.markModified('notes');
         doc.save().then(() => {
             console.log("Note successfully deleted.")
-            res.redirect('/');
+            res.send({value: true, msg:"Note succesfully deleted."});
         });
     });
 }

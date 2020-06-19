@@ -6,3 +6,32 @@
     box-shadow: 0px 5px 15px darkgrey;
     margin: 10px;
 }
+/* .icon{
+    float: right;
+    margin: 0px 4px;
+} */
+#icon_edit{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: teal;
+    transition: transform 0.2s;
+    transition-delay: 0.1s;
+}
+#icon_delete{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    color: tomato;
+    transition: transform 0.2s;
+    transition-delay: 0.1s;
+}
+
+#icon_edit:hover{
+    color: rgb(3, 97, 97);
+    transform: rotate(-10deg) scale(1.3);
+}
+#icon_delete:hover{
+    color: rgb(224, 61, 32);
+    transform: rotate(10deg) scale(1.3);
+}

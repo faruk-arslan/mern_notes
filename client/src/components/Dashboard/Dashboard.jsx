@@ -59,7 +59,28 @@ function Dashboard() {
   }
 
   function deleteNote(id) {
-    console.log(`delete- id: ${id}`);
+    // console.log(`delete- id: ${id}`);
+    const data = qs.stringify({
+      noteId: id,
+    });
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    };
+    axios.delete(
+      '/notes/delete',
+      data,
+      headers
+    ).then(result => {
+      console.log(result);
+      if (!result.data.value) {
+        console.log("Oops!");
+      } else {
+        console.log(result.data.msg);
+        setNotes(prevNotes=>{
+          return ([...prevNotes].filter(item=> item.id !== id));
+        })
+      }
+    })
   }
 
   return (
