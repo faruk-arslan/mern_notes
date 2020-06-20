@@ -3,7 +3,8 @@ const router = express.Router();
 const notesController = require('../controllers/notesController');
 
 router.use(function (req, res, next) {
-    if (!req.user) res.redirect('/user/login');
+    // if (!req.user) res.redirect('/user/login');
+    if (!req.user) res.send({value: false, msg:"Redirect to login."});
     else next();
   })
 

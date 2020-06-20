@@ -33,12 +33,12 @@ function CreateField(props) {
     }
 
     return (
-        <form onSubmit={createNote} className="input-form" autocomplete="off">
-            <div className="form-group">
-                <input type="text" className="form-control" id="title_input" placeholder="Title"></input>
+        <form onSubmit={createNote} className="input-form" id="form_create_note" autocomplete="off">
+            <div className="form-group" id="fg-create">
+                <input type="text" className="form-control fc-create" id="title_input" placeholder="Title"></input>
             </div>
             <div className="form-group">
-                <textarea className="form-control" id="content_input" placeholder="Content" rows="3"></textarea>
+                <textarea className="form-control fc-create" id="content_input" placeholder="Content" rows="3"></textarea>
             </div>
             <button type="submit" id="add-button" class="btn btn-primary">
                 <span id="fab-add" class="material-icons">

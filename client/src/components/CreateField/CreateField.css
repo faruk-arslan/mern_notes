@@ -1,12 +1,8 @@
-.input-form {
-    width: 30%;
-}
-
-.form-group {
+#fg-create {
     margin: 4px;
 }
-
-.input-form {
+#form_create_note {
+    width: 30%;
     padding: 4px;
     margin-top: 2rem;
     background-color: #fff;
@@ -14,14 +10,12 @@
     box-shadow: 0px 5px 15px darkgrey;
     margin-bottom: 3rem;
 }
-
-.form-control {
+.fc-create {
     border: 0px;
     border-radius: 10px;
     /* box-shadow: 0px 5px 15px darkgrey; */
 }
-
-.form-control:focus {
+.fc-create:focus {
     color: #495057;
     border: none;
     border-color: none;
@@ -29,18 +23,6 @@
     box-shadow: none;
     /* box-shadow: 0px 0px 10px darkgrey; */
 }
-
-form {
-    padding: 40px;
-    background-color: rgba(224, 224, 224, 0.6);
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    box-shadow: 0px 2px 15px darkgrey;
-    border: 0px;
-    border-radius: 10px;
-}
-
 #fab-add{
     align-items: baseline;
     display: inline-block;
@@ -49,7 +31,7 @@ form {
 }
 
 #add-button{
-    background: #84A59D;
+    background: rgb(61, 143, 122);
     border: 1px solid transparent;
     width: 3rem;
     height: 3rem;
@@ -59,18 +41,9 @@ form {
     top: -1.3rem;
     right: 1rem;
     box-shadow: 0px 2px 5px darkgrey;
-    transform: ease-in-out 0.2s;
-    -moz-transition: ease-in-out 0.2s;
-    -webkit-transition: ease-in-out 0.2s;
-    -o-transition: ease-in-out 0.2s;
-    -ms-transition: ease-in-out 0.2s;
+    transition: transform 0.2s;
 }
 #add-button:hover{
-    background: rgb(61, 143, 122);
+    background: rgb(33, 105, 87);
     transform: translateY(-4px);
-    transform: ease-in-out 0.2s;
-    -moz-transition: ease-in-out 0.2s;
-    -webkit-transition: ease-in-out 0.2s;
-    -o-transition: ease-in-out 0.2;
-    -ms-transition: ease-in-out 0.2s;
 }

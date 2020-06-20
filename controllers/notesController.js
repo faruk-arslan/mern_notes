@@ -32,7 +32,7 @@ exports.addNote = function (req, res) {
 exports.getNotes = function (req, res) {
     Note.findOne({ uid: req.user._id }, function (err, doc) {
         if (err) console.log(err);
-        res.send(doc.notes)
+        else res.send({value: true, msg:"OK", items:doc.notes});
     });
 }
 
@@ -51,7 +51,7 @@ exports.updateNote = function (req, res) {
         doc.markModified('notes');
         doc.save().then(() => {
             console.log("Note successfully updated.")
-            res.redirect('/');
+            res.send({value: true, msg:"Note succesfully updated."});
         });
     });
 }

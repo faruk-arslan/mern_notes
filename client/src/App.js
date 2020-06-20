@@ -25,7 +25,7 @@ function App() {
 
     axios.get(
       '/user/check').then(result => {
-        console.log(result.data)
+        // console.log(result.data)
         if (result.data) store.dispatch({ type: 'EXIST' });
         else store.dispatch({ type: 'EMPTY' });
         setLoading(false);
