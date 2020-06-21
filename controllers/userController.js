@@ -121,5 +121,5 @@ exports.loginUser = function (req, res, next) {
 
 exports.logoutUser = function (req, res, next) {
     req.logout();
-    res.redirect('/user/login');
+    res.send({value: true, msg:"Logged out."});
 }

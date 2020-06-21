@@ -14,6 +14,7 @@ import Notes from '../Notes/Notes';
 import Modal from '../Modal/Modal';
 import axios from 'axios';
 import qs from 'qs';
+import store from '../../redux/store';
 
 function Dashboard() {
   const history = useHistory();
@@ -78,10 +79,10 @@ function Dashboard() {
       if (!result.data.value) { history.replace("/login"); }
       else {
         setNotes(prevNotes => {
-          const updatedArray=prevNotes.map(item=>{
-            if(item.id===id){
-              item.title=title;
-              item.content=content
+          const updatedArray = prevNotes.map(item => {
+            if (item.id === id) {
+              item.title = title;
+              item.content = content
             }
             return item;
           })
@@ -137,9 +138,19 @@ function Dashboard() {
     })
   }
 
+  function logoutUser() {
+    axios.get('/user/logout').then(resp => {
+      if (!resp.data.value) {history.replace('/login');}
+      else {
+        store.dispatch({ type: 'EMPTY' });
+        history.replace('/login');
+      }
+    })
+  }
+
   return (
     <div>
-      <Header />
+      <Header logout={logoutUser} />
       <CreateField add={addNote} />
       {notes.map((note, index) => {
         return (<Notes note={note} key={index} id={index}

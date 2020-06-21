@@ -24,7 +24,7 @@ router.get('/check', userController.checkUser)
 
 router.route('/logout')
 .all(function (req, res, next) {
-    if (!req.user) res.redirect('/user/login');
+    if (!req.user) res.send({value: false, msg:"Redirect to login."});
     else next();
   })
 .get(userController.logoutUser)

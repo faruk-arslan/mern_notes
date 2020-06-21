@@ -44,7 +44,7 @@
     border: 0px;
     overflow: auto;
     word-wrap: break-word;
-    max-height: 10vh;
+    max-height: 50vh;
     /* border-radius: 10px; */
 }
 #input_edit_content:focus{
