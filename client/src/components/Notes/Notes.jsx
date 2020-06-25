@@ -8,7 +8,7 @@ function Notes(props) {
 
     return (
         <div class="card" id="note_card">
-            <div className="card-body">
+            <div className="card-body" id="note_card_body">
                 <h5 className="card-title">{props.note.title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
                 <p className="card-text">{props.note.content}</p>

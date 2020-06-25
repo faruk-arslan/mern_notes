@@ -2,13 +2,16 @@
     margin: 4px;
 }
 #form_create_note {
-    width: 30%;
+    /* width: 30%; */
     padding: 4px;
     margin-top: 2rem;
     background-color: #fff;
     /* box-shadow: none; */
     box-shadow: 0px 5px 15px darkgrey;
     margin-bottom: 3rem;
+}
+.create-col{
+    margin: auto;
 }
 .fc-create {
     border: 0px;

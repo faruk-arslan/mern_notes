@@ -87,10 +87,8 @@ function Login() {
 
 
     return (
-        <div>
-            {/* <form onSubmit={login}> */}
             <div className="container">
-                <div className="login-col col-xl-5 col-lg-5 col-md-6 col-sm-8 col-10">
+                <div className="login-col col-xl-4 col-lg-4 col-md-5 col-sm-8 col-10">
                     <form onSubmit={login}>
                         <div className="form-group">
                             <label for="exampleInputEmail1">Email address</label>
@@ -120,8 +118,6 @@ function Login() {
                     </form>
                 </div>
             </div>
-            {/* </form> */}
-        </div>
     );
 }
 

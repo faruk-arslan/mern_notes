@@ -49,7 +49,7 @@ function Modal(props) {
 
     return (
         <div id="modal_container">
-            <div class="card" id="modal_card">
+            <div class="card col-xl-4 col-lg-4 col-md-5 col-sm-8 col-10" id="modal_card">
                 <div className="card-body" id="card_body_edit">
                     <form onSubmit={editNote} className="input-form" id="form_edit_note" autocomplete="off">
                         <h5 className="card-title">

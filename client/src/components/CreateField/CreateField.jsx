@@ -32,20 +32,22 @@ function CreateField(props) {
         return ((titleInput.value || contentInput.value) ? true : false);
     }
 
-    return (
-        <form onSubmit={createNote} className="input-form" id="form_create_note" autocomplete="off">
-            <div className="form-group" id="fg-create">
-                <input type="text" className="form-control fc-create" id="title_input" placeholder="Title"></input>
-            </div>
-            <div className="form-group">
-                <textarea className="form-control fc-create" id="content_input" placeholder="Content" rows="3"></textarea>
-            </div>
-            <button type="submit" id="add-button" class="btn btn-primary">
-                <span id="fab-add" class="material-icons">
-                    add
+    return (     
+            <div className="create-col col-xl-4 col-lg-4 col-md-6 col-sm-6 col-10">
+                <form onSubmit={createNote} className="input-form" id="form_create_note" autocomplete="off">
+                    <div className="form-group" id="fg-create">
+                        <input type="text" className="form-control fc-create" id="title_input" placeholder="Title"></input>
+                    </div>
+                    <div className="form-group">
+                        <textarea className="form-control fc-create" id="content_input" placeholder="Content" rows="3"></textarea>
+                    </div>
+                    <button type="submit" id="add-button" class="btn btn-primary">
+                        <span id="fab-add" class="material-icons">
+                            add
                 </span>
-            </button>
-        </form>
+                    </button>
+                </form>
+            </div>
     );
 }
 

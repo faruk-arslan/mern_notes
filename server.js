@@ -17,8 +17,9 @@ const User = require('./models/userModel');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+require('dotenv').config()
 
-mongoose.connect('mongodb+srv://admin-nowll:maDnm0156.@cluster0-czixj.mongodb.net/notesDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).
+mongoose.connect(process.env.DB_URL_START+process.env.DB_USER+":"+process.env.DB_PASS+process.env.DB_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true }).
     catch(error => { console.log(error) })
 // error handling after connection
 mongoose.connection.on('error', err => {
@@ -85,7 +86,7 @@ app.use('/notes', notesRouter);
 
 
 
-const port = 5000;
+const port = process.env.PORT || port;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

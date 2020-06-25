@@ -9,7 +9,11 @@ form{
     border-radius: 15px;
 }
 .login-col{
-    margin: auto;
+    position: fixed;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
 }
 .container{
     width: 100%;

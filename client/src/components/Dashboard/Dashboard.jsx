@@ -7,6 +7,7 @@ import {
   Link,
   useHistory
 } from "react-router-dom";
+import './Dashboard.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import CreateField from '../CreateField/CreateField';
@@ -140,7 +141,7 @@ function Dashboard() {
 
   function logoutUser() {
     axios.get('/user/logout').then(resp => {
-      if (!resp.data.value) {history.replace('/login');}
+      if (!resp.data.value) { history.replace('/login'); }
       else {
         store.dispatch({ type: 'EMPTY' });
         history.replace('/login');
@@ -152,11 +153,13 @@ function Dashboard() {
     <div>
       <Header logout={logoutUser} />
       <CreateField add={addNote} />
-      {notes.map((note, index) => {
-        return (<Notes note={note} key={index} id={index}
-          openModal={triggerModal} delete={deleteNote}
-        />)
-      })}
+      <div id="notes_main_div">
+        {notes.map((note, index) => {
+          return (<Notes note={note} key={index} id={index}
+            openModal={triggerModal} delete={deleteNote}
+          />)
+        })}
+      </div>
       {isModalOpen && <Modal note={modalData} delete={deleteNote}
         update={updateNote} closeModal={exitModal}
       />}
